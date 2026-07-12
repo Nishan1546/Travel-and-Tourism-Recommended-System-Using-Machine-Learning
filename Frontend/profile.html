@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root {
+    --glass: rgba(255, 255, 255, 0.85);
+    --primary: #4361ee;
+    --accent: #f72585;
+    --nature: #4cc9f0;
+    --religious: #7209b7;
+    --historic: #f8961e;
+    --danger: #ef233c;
+    --success: #06d6a0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    color: #2b2d42;
+    min-height: 100vh;
+}
+
+/* Glassmorphism Navbar */
+.navbar {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding: 1rem 0;
+}
+
+.navbar-brand { font-weight: 700; color: var(--primary) !important; letter-spacing: -1px; font-size: 1.5rem; }
+
+/* Hero Card Styling */
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    transition: 0.4s ease;
+}
+
+/* Day Badges */
+.day-timeline {
+    border-left: 3px dashed #cbd5e0;
+    margin-left: 20px;
+    padding-left: 30px;
+    position: relative;
+}
+
+.day-marker {
+    position: absolute;
+    left: -15px;
+    background: var(--primary);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* Vibe Indicators */
+.vibe-tag {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* The "Self-Healing" Button */
+.btn-heal {
+    background: linear-gradient(45deg, var(--accent), #ff4d6d);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    padding: 10px 20px;
+    box-shadow: 0 10px 20px rgba(247, 37, 133, 0.3);
+    transition: 0.3s;
+}
+
+.btn-heal:hover {
+    transform: scale(1.05) rotate(-1deg);
+    box-shadow: 0 15px 25px rgba(247, 37, 133, 0.4);
+    color: white;
+}
+
+/* Map Overrides */
+#map {
+    border-radius: 30px;
+    border: 8px solid white;
+    filter: saturate(1.2);
+}
+
+/* Animations */
+.fade-up {
+    animation: fadeUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}

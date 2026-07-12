@@ -1,0 +1,21 @@
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
+
+db = SQLAlchemy()
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(60), nullable=False)
+    # This will link to their saved travel plans later
+    plans = db.relationship('TravelPlan', backref='author', lazy=True)
+
+class TravelPlan(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    state = db.Column(db.String(100), nullable=False)
+    district = db.Column(db.String(100), nullable=False)
+    budget = db.Column(db.Float, nullable=False)
+    start_date = db.Column(db.String(20))
+    end_date = db.Column(db.String(20))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

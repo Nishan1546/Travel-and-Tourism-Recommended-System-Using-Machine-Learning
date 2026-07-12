@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartTravel AI | Plan Your Journey</title>
+    <!-- Google Fonts & Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">🌍 SmartTravel <span class="text-dark">AI</span></a>
+        <div class="ms-auto">
+            {% if current_user.is_authenticated %}
+                <a href="/profile" class="btn btn-primary btn-sm rounded-pill px-3">👤 My Profile</a>
+            {% else %}
+                <a href="/login" class="btn btn-outline-primary btn-sm rounded-pill px-3">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+<div class="container py-5 mt-4">
+    <div class="row align-items-center mb-5 fade-up">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+            <h1 class="display-3 fw-bold mb-4">Travel Smarter,<br><span class="text-primary">Not Harder.</span></h1>
+            <p class="lead text-muted mb-4">The world's first AI travel planner that "heals" your itinerary in real-time using live traffic, weather, and pollution data.</p>
+            <div class="d-flex gap-3">
+                <div class="p-3 bg-white shadow-sm rounded-4 border">
+                    <span class="fw-bold d-block">Religious 🙏</span>
+                    <small class="text-muted">Temples & Shrines</small>
+                </div>
+                <div class="p-3 bg-white shadow-sm rounded-4 border">
+                    <span class="fw-bold d-block">Nature 🌿</span>
+                    <small class="text-muted">Parks & Peaks</small>
+                </div>
+                <div class="p-3 bg-white shadow-sm rounded-4 border">
+                    <span class="fw-bold d-block">Historic 🏛️</span>
+                    <small class="text-muted">Forts & Heritage</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="glass-card p-4 p-md-5">
+                <h4 class="mb-4 fw-bold text-center">Start Your Journey</h4>
+                <form action="/process_itinerary" method="POST">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="small fw-bold text-uppercase text-muted mb-2">State / UT</label>
+                            <select id="state" name="state" class="form-select border-0 bg-light p-3 shadow-none" onchange="updateDistricts()" required>
+                                <option value="">Select State</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small fw-bold text-uppercase text-muted mb-2">Tourist District</label>
+                            <select id="district" name="district" class="form-select border-0 bg-light p-3 shadow-none" required>
+                                <option value="">Choose hub</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small fw-bold text-uppercase text-muted mb-2">Start Date</label>
+                            <input type="date" name="start_date" class="form-control border-0 bg-light p-3 shadow-none" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="small fw-bold text-uppercase text-muted mb-2">End Date</label>
+                            <input type="date" name="end_date" class="form-control border-0 bg-light p-3 shadow-none" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="small fw-bold text-uppercase text-muted mb-2">Budget (INR)</label>
+                            <input type="number" name="budget" class="form-control border-0 bg-light p-3 shadow-none" placeholder="e.g. 10000" required>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <button type="submit" class="btn btn-primary w-100 p-3 fw-bold rounded-3 shadow">✨ Generate Smart Plan</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const stateDistricts = {
+        "Andaman & Nicobar": ["Port Blair", "Havelock Island", "Neil Island"],
+        "Andhra Pradesh": ["Visakhapatnam", "Tirupati", "Vijayawada", "Araku Valley", "Kurnool"],
+        "Arunachal Pradesh": ["Tawang", "Itanagar", "Ziro", "Bomdila" ," Papum Pare"],
+        "Assam": ["Guwahati", "Kaziranga", "Majuli", "Jorhat" ,"Nagaon"],
+        "Bihar": ["Gaya", "Patna", "Nalanda", "Rajgir", " Bhagalpur"],
+        "Chandigarh": ["Chandigarh City"],
+        "Chhattisgarh": ["Raipur", "Bastar", "Bilaspur" , "Surguja" , " Kanker"],
+        "Dadra & Nagar Haveli": ["Silvassa"],
+        "Daman & Diu": ["Daman", "Diu"],
+        "Delhi": ["New Delhi", "Old Delhi", "Mehrauli"],
+        "Goa": ["North Goa", "South Goa", "Panaji"],
+        "Gujarat": ["Ahmedabad", "Kutch", "Dwarka", "Somnath", "Gir Somnath", "Vadodara"],
+        "Haryana": ["Gurgaon", "Kurukshetra", "Panchkula", "Ambala" , "Faridabad"],
+        "Himachal Pradesh": ["Shimla", "Manali", "Dharamshala", "Kangra", "Kullu", "Spiti"],
+        "Jammu & Kashmir": ["Srinagar", "Gulmarg", "Pahalgam", "Jammu", "Sonamarg"],
+        "Jharkhand": ["Ranchi", "Jamshedpur", "Deoghar" ,"East Singhbhum" , "Hazaribagh"],
+        "Karnataka": ["Bengaluru", "Mysore", "Coorg", "Hampi", "Gokarna", "Chikmagalur"],
+        "Kerala": ["Munnar", "Wayanad", "Alappuzha", "Kochi", "Thekkady", "Varkala"],
+        "Ladakh": ["Leh", "Nubra Valley", "Pangong Tso"],
+        "Lakshadweep": ["Kavaratti", "Agatti", "Bangaram"],
+        "Madhya Pradesh": ["Bhopal", "Indore", "Khajuraho", "Gwalior", "Ujjain", "Pachmarhi"],
+        "Maharashtra": ["Mumbai", "Pune", "Mahabaleshwar", "Nashik", "Aurangabad", "Lonavala"],
+        "Manipur": ["Imphal West" , "Imphal East" , "Bishnupur" , "Thoubal" , "Ukhrul"],
+        "Meghalaya": ["Shillong", "Cherrapunji", "Dawki" ,"West Garo Hills" , "Ri Bhoi"],
+        "Mizoram": ["Aizawl", "Lunglei" , "Siaha"],
+        "Nagaland": ["Kohima", "Dimapur"],
+        "Odisha": ["Bhubaneswar", "Puri", "Sambalpur", "Cuttack", "Jagatsinghapur" , "Angul" , "Balasore" , "Sambalpur" , "Nayagarh" , "Ganjam"],
+        "Puducherry": ["Pondicherry City"],
+        "Punjab": ["Amritsar", "Ludhiana", "Patiala" ,"Jalandhar" , "Kapurthala"],
+        "Rajasthan": ["Jaipur", "Udaipur", "Jodhpur", "Jaisalmer", "Pushkar", "Bikaner", "Mount Abu"],
+        "Sikkim": ["Gangtok", "Pelling", "Lachung", "Namchi"],
+        "Tamil Nadu": ["Chennai", "Madurai", "Ooty", "Kanyakumari", "Rameshwaram", "Kodaikanal"],
+        "Telangana": ["Hyderabad", "Warangal", "Nizamabad" , " Adilabad ", "Khammam" , "Nalgonda"],
+        "Tripura": ["Agartala"],
+        "Uttar Pradesh": ["Agra", "Varanasi", "Lucknow", "Mathura", "Ayodhya", "Prayagraj"],
+        "Uttarakhand": ["Rishikesh", "Nainital", "Mussoorie", "Dehradun", "Haridwar", "Auli"],
+        "West Bengal": ["Kolkata", "Darjeeling", "Digha", "Sundarbans", "Kalimpong"]
+    };
+
+    function populate() {
+        const stateSelect = document.getElementById("state");
+        Object.keys(stateDistricts).sort().forEach(state => {
+            let op = document.createElement("option");
+            op.value = state; op.text = state; stateSelect.add(op);
+        });
+    }
+    function updateDistricts() {
+        const s = document.getElementById("state").value;
+        const d = document.getElementById("district");
+        d.innerHTML = '<option value="">Choose District</option>';
+        if(stateDistricts[s]) stateDistricts[s].forEach(item => {
+            let op = document.createElement("option");
+            op.value = item; op.text = item; d.add(op);
+        });
+    }
+    window.onload = populate;
+</script>
+</body>
+</html>

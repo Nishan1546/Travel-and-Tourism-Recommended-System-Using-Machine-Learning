@@ -59,6 +59,7 @@ TOMTOM_KEY = "your_tomtom_key"
 4. Initialize Database Models & Boot Engine
 python app.py
 Open your browser and navigate to [http://127.0.0.1:5002](http://127.0.0.1:5002).
+
 📊 Performance Core Metrics MeasuredThe application profiles and computes three fundamental telemetry matrices displayed natively inside the execution UI panel:
 1. System Compute Latency ($t_{exe}$): Measures end-to-end execution runtime for geo-queries and batch matrix allocations.
 2. Category Structural Accuracy ($\%$): Reflects the algorithmic performance of the POI routing engine in providing diverse category allocations (Religious, Nature, and Historic spots) balanced across multi-day parameters.

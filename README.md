@@ -5,7 +5,6 @@
 [![Database](https://img.shields.io/badge/database-SQLite%20%2F%20SQLAlchemy-green.svg)](https://www.sqlalchemy.org/)
 [![NLP Engine](https://img.shields.io/badge/NLP-TextBlob-orange.svg)](https://textblob.readthedocs.io/)
 
-A dynamic, data-driven travel itinerary generator designed to optimize multi-day trip tracking while monitoring real-time environmental factors. The core engine constructs daily paths optimized via the **Haversine formula**, while concurrently evaluating live external telemetry APIs—including **Air Quality Index (AQI)** and **TomTom traffic congestion patterns**—using an asynchronous thread worker pool. This ensures high-quality, safe, and "Healthy" route scheduling, eliminating high-density and highly polluted zones automatically.
 
 ---
 A dynamic, data-driven travel itinerary generator built using Flask, SQLAlchemy, and TextBlob NLP. This application creates multi-day travel routes optimized by the Haversine formula, continuously checking live external telemetry APIs (Air Quality and Traffic congestion patterns) via a concurrent asynchronous worker pool to ensure high-quality, "Healthy" travel planning.

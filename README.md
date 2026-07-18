@@ -24,7 +24,7 @@ OpenWeatherMap API: Atmospheric telemetry and real-time Air Quality Index (AQI) 
 TomTom Traffic API: Live geometric bounding-box traffic collision and congestion mapping.
 
 🏗️ Project Structure
-## 🏗️ Project Structure
+
 ```text
 
 ├── app.py                  # Core Routing System & Telemetry Controller
@@ -41,6 +41,8 @@ TomTom Traffic API: Live geometric bounding-box traffic collision and congestion
     ├── register.html       # User identity provisioning dashboard
     └── profile.html        # Historical sentiment logs and user portfolios
 
+
+```
 ⚡ Quick Start & Installation
 1. Clone the Workspace Environment
 git clone https://github.com/yourusername/smart-travel-planner.git
@@ -62,4 +64,10 @@ Open your browser and navigate to [http://127.0.0.1:5002](http://127.0.0.1:5002)
 2. Category Structural Accuracy ($\%$): Reflects the algorithmic performance of the POI routing engine in providing diverse category allocations (Religious, Nature, and Historic spots) balanced across multi-day parameters.
 3. Route Distribution Optimization Efficiency ($\%$): Measures path optimizing capability by comparing the Haversine distance tracking of the generated itinerary against a randomized path configuration.
 
-$$Efficiency = \left( \frac{\text{Distance}_{\text{Random}} - \text{Distance}_{\text{Smart}}}{\text{Distance}_{\text{Random}}} \right) \times 100$$
+### 3. Route Distribution Optimization Efficiency (%)
+Measures the path-optimizing capability of our engine by comparing the total Haversine distance of our smart mixed itinerary against a completely randomized shuffle of the same destinations.
+
+$$Efficiency = \left( \frac{\text{Distance}_{\text{Random}} - \text{Distance}_{\text{Smart}}}{\text{Distance}_{\text{Random}}} \right) \times 100\%$$
+
+* **$\text{Distance}_{\text{Smart}}$**: The total kilometers calculated sequentially using our Haversine algorithm.
+* **$\text{Distance}_{\text{Random}}$**: The baseline distance if a traveler visited the exact same spots in a randomized, un-optimized order.

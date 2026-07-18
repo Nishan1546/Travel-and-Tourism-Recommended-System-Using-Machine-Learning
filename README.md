@@ -53,7 +53,7 @@ TomTom Traffic API: Live geometric bounding-box traffic collision and congestion
 ```
 ⚡ Quick Start & Installation
 1. Clone the Workspace Environment
-git clone https://github.com/yourusername/smart-travel-planner.git
+https://github.com/Nishan1546/Travel-and-Tourism-Recommended-System-Using-Machine-Learning/tree/main
 cd smart-travel-planner
 2. Configure Virtual Environment & Packages
 python -m venv venv
